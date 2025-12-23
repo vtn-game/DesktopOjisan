@@ -1,0 +1,28 @@
+# デスクトップおじさん ゲームパラメータ定義
+
+[server]
+port = 8080                    # APIサーバポート
+auto_start = true              # 自動起動
+
+[dialog]
+typing_speed = 0.05            # タイピング速度（秒/文字）
+auto_hide_delay = 5.0          # 自動非表示までの時間（秒）
+use_typing_effect = true       # タイピングエフェクト有効化
+
+[window]
+default_width = 400            # デフォルトウィンドウ幅
+default_height = 600           # デフォルトウィンドウ高さ
+default_transparency = 255     # デフォルト透明度（0-255）
+always_on_top = true           # 常に最前面
+click_through = false          # クリック透過
+
+[ojisan]
+# TODO: 好感度システム実装時に定義
+# affection_initial = 0        # 初期好感度
+# affection_max = 100          # 最大好感度
+# affection_decay_rate = 0.1   # 好感度減衰率（/時間）
+
+[reaction]
+# TODO: リアクションシステム実装時に定義
+# steam_play_threshold_hours = 3    # Steam警告閾値（時間）
+# commit_warning_hours = 4          # コミット警告閾値（時間）

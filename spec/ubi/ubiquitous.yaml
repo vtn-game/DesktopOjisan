@@ -1,0 +1,129 @@
+# デスクトップおじさん ユビキタス言語（ドメイン用語辞書）
+
+# ============================================================
+# キャラクター関連
+# ============================================================
+
+ojisan:
+  ja: おじさん
+  en: Ojisan
+  description: デスクトップに常駐するマスコットキャラクター。開発者の行動に反応する。
+
+affection:
+  ja: 好感度
+  en: Affection
+  description: おじさんのユーザーに対する好意の度合い。行動によって増減する。
+
+# ============================================================
+# 状態関連
+# ============================================================
+
+idle:
+  ja: アイドル状態
+  en: Idle
+  description: おじさんが何もしていない待機状態。
+
+talking:
+  ja: 会話中
+  en: Talking
+  description: おじさんがメッセージを表示している状態。
+
+reacting:
+  ja: リアクション中
+  en: Reacting
+  description: おじさんが何かに反応している状態。
+
+# ============================================================
+# アクション関連
+# ============================================================
+
+command:
+  ja: コマンド
+  en: Command
+  description: ユーザーがおじさんに対して実行できる操作。
+
+reaction:
+  ja: リアクション
+  en: Reaction
+  description: おじさんが外部イベントに対して行う反応。
+
+trigger:
+  ja: トリガー
+  en: Trigger
+  description: リアクションを引き起こすイベントや条件。
+
+# ============================================================
+# UI関連
+# ============================================================
+
+dialog:
+  ja: ダイアログ
+  en: Dialog
+  description: おじさんのセリフを表示する吹き出しUI。
+
+command_menu:
+  ja: コマンドメニュー
+  en: Command Menu
+  description: 実行可能なコマンド一覧を表示するUI。
+
+command_button:
+  ja: コマンドボタン
+  en: Command Button
+  description: コマンドメニューを開くためのボタン。
+
+# ============================================================
+# システム関連
+# ============================================================
+
+api_server:
+  ja: APIサーバ
+  en: API Server
+  description: 外部アプリケーションからのコマンドを受け付けるHTTPサーバ。
+
+native_plugin:
+  ja: ネイティブプラグイン
+  en: Native Plugin
+  description: Windows APIを呼び出すためのC++ DLL。
+
+window_controller:
+  ja: ウィンドウコントローラ
+  en: Window Controller
+  description: ウィンドウの位置、サイズ、透明度などを制御するコンポーネント。
+
+# ============================================================
+# 外部連携関連
+# ============================================================
+
+external_event:
+  ja: 外部イベント
+  en: External Event
+  description: API経由で受信する外部アプリケーションからのイベント。
+
+commit_detection:
+  ja: コミット検知
+  en: Commit Detection
+  description: Gitコミットを検出してリアクションを発生させる機能。
+
+steam_integration:
+  ja: Steam連携
+  en: Steam Integration
+  description: Steamのゲームプレイ時間を監視する機能。
+
+# ============================================================
+# リアクション種別
+# ============================================================
+
+angry_reaction:
+  ja: 怒りリアクション
+  en: Angry Reaction
+  description: おじさんが怒る反応。コピペ、長時間ゲームなどで発生。
+
+happy_reaction:
+  ja: 喜びリアクション
+  en: Happy Reaction
+  description: おじさんが喜ぶ反応。コミット、コーヒーなどで発生。
+
+greet_reaction:
+  ja: 挨拶リアクション
+  en: Greet Reaction
+  description: おじさんが挨拶する反応。起動時やgreetコマンドで発生。

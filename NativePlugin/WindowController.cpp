@@ -99,4 +99,34 @@ extern "C" {
 
         SetLayeredWindowAttributes(hwnd, 0, alpha, LWA_ALPHA);
     }
+
+    // Enable transparent background using color key
+    // NOTE: 透明色をマゼンタ(RGB 255,0,255)に設定し、その色を透過させる
+    __declspec(dllexport) void SetTransparentBackground(HWND hwnd, BYTE r, BYTE g, BYTE b) {
+        if (hwnd == NULL) {
+            hwnd = GetActiveWindow();
+        }
+
+        LONG exStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+        exStyle |= WS_EX_LAYERED;
+        SetWindowLong(hwnd, GWL_EXSTYLE, exStyle);
+
+        COLORREF colorKey = RGB(r, g, b);
+        SetLayeredWindowAttributes(hwnd, colorKey, 255, LWA_COLORKEY);
+    }
+
+    // Check if the window is the foreground window
+    __declspec(dllexport) bool IsWindowForeground(HWND hwnd) {
+        if (hwnd == NULL) {
+            hwnd = GetActiveWindow();
+        }
+
+        return GetForegroundWindow() == hwnd;
+    }
+
+    // Get screen dimensions
+    __declspec(dllexport) void GetScreenSize(int* width, int* height) {
+        *width = GetSystemMetrics(SM_CXSCREEN);
+        *height = GetSystemMetrics(SM_CYSCREEN);
+    }
 }

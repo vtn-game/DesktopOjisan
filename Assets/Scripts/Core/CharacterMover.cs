@@ -15,6 +15,9 @@ namespace DesktopOjisan.Core
         [Header("Bounds")]
         [SerializeField] private float _padding = 50f;
 
+        [Header("3D Object Settings")]
+        [SerializeField] private float _objectRadius = 50f;
+
         private Vector2 _direction;
         private Vector2 _screenSize;
         private RectTransform _rectTransform;
@@ -25,6 +28,11 @@ namespace DesktopOjisan.Core
             _direction = _initialDirection.normalized;
             _rectTransform = GetComponent<RectTransform>();
             _mainCamera = Camera.main;
+
+            if (_mainCamera == null && _rectTransform == null)
+            {
+                Debug.LogWarning("[CharacterMover] Camera.main is null. 3D object movement may not work correctly.");
+            }
         }
 
         private void Start()
@@ -79,9 +87,14 @@ namespace DesktopOjisan.Core
             else
             {
                 // 3Dオブジェクトの場合はビューポート座標を使用
+                if (_mainCamera == null)
+                {
+                    // カメラがない場合は境界チェックをスキップ
+                    return;
+                }
                 Vector3 viewportPos = _mainCamera.WorldToScreenPoint(transform.position);
                 position = new Vector2(viewportPos.x, viewportPos.y);
-                size = Vector2.one * 50f; // 仮のサイズ
+                size = Vector2.one * _objectRadius;
             }
 
             bool reflected = false;

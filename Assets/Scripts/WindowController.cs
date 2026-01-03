@@ -36,6 +36,15 @@ public class WindowController : MonoBehaviour
     [DllImport(DLL_NAME)]
     private static extern void SetWindowTransparency(IntPtr hwnd, byte alpha);
 
+    [DllImport(DLL_NAME)]
+    private static extern void SetTransparentBackground(IntPtr hwnd, byte r, byte g, byte b);
+
+    [DllImport(DLL_NAME)]
+    private static extern bool IsWindowForeground(IntPtr hwnd);
+
+    [DllImport(DLL_NAME)]
+    private static extern void GetScreenSize(out int width, out int height);
+
     #endregion
 
     #region Fields
@@ -47,6 +56,10 @@ public class WindowController : MonoBehaviour
     [SerializeField] private bool _alwaysOnTop = true;
     [SerializeField] private bool _clickThrough = false;
     [SerializeField, Range(0, 255)] private byte _transparency = 255;
+
+    [Header("Transparent Background")]
+    [SerializeField] private bool _useTransparentBackground = true;
+    [SerializeField] private Color _transparentColor = new Color(1f, 0f, 1f, 1f); // マゼンタ
 
     #endregion
 
@@ -180,6 +193,54 @@ public class WindowController : MonoBehaviour
 #endif
     }
 
+    /// <summary>
+    /// Enables transparent background using color key.
+    /// Pixels with the specified color become fully transparent.
+    /// </summary>
+    public void EnableTransparentBackground(Color color)
+    {
+#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
+        if (_windowHandle == IntPtr.Zero) return;
+
+        byte r = (byte)(color.r * 255);
+        byte g = (byte)(color.g * 255);
+        byte b = (byte)(color.b * 255);
+        SetTransparentBackground(_windowHandle, r, g, b);
+        Debug.Log($"WindowController: Transparent background enabled (color: {r},{g},{b})");
+#endif
+    }
+
+    /// <summary>
+    /// Checks if this window is the foreground window.
+    /// </summary>
+    public bool IsForeground()
+    {
+#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
+        if (_windowHandle == IntPtr.Zero) return true;
+        return IsWindowForeground(_windowHandle);
+#else
+        return true;
+#endif
+    }
+
+    /// <summary>
+    /// Gets the screen size.
+    /// </summary>
+    public static Vector2Int GetScreenDimensions()
+    {
+#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
+        GetScreenSize(out int width, out int height);
+        return new Vector2Int(width, height);
+#else
+        return new Vector2Int(Screen.width, Screen.height);
+#endif
+    }
+
+    /// <summary>
+    /// Returns the transparent color used for background transparency.
+    /// </summary>
+    public Color TransparentColor => _transparentColor;
+
     #endregion
 
     #region Private Methods
@@ -214,6 +275,11 @@ public class WindowController : MonoBehaviour
         if (_transparency < 255)
         {
             SetTransparency(_transparency);
+        }
+
+        if (_useTransparentBackground)
+        {
+            EnableTransparentBackground(_transparentColor);
         }
     }
 
